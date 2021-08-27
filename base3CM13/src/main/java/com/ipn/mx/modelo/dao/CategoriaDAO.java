@@ -168,7 +168,7 @@ public class CategoriaDAO {
             CategoriaDAO dao= new CategoriaDAO();
             
             CategoriaDTO dto= new CategoriaDTO();
-            dto.getEntidad().setNombrecategoria("Lineablanca");
+            dto.getEntidad().setNombrecategoria("Electronicos");
             dto.getEntidad().setDescripcioncategoria("Cosas para el hogar");
             try {
                 dao.create(dto);
