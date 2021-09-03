@@ -169,7 +169,7 @@ public class CategoriaDAO {
             
             CategoriaDTO dto= new CategoriaDTO();
             dto.getEntidad().setNombrecategoria("Electronicos");
-            dto.getEntidad().setDescripcioncategoria("Cosas para el hogar");
+            dto.getEntidad().setDescripcioncategoria("Video Juegos");
             try {
                 dao.create(dto);
             } catch (SQLException ex) {
