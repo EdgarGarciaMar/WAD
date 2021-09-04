@@ -22,8 +22,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author edgargarcia
  */
-@WebServlet(name = "ActualizarCategoria", urlPatterns = {"/ActualizarCategoria"})
-public class ActualizarCategoria extends HttpServlet {
+@WebServlet(name = "update", urlPatterns = {"/update"})
+public class update extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,50 +42,33 @@ public class ActualizarCategoria extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ActualizarCategoria</title>");
+            out.println("<title>Update</title>");
             out.print("<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We\" crossorigin=\"anonymous\">\n"
                     + "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj\" crossorigin=\"anonymous\"></script>");
             out.println("<script src=\"https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js\" \n"
                     + "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js\" crossorigin=\"anonymous\"></script>");
             out.println("</head>");
             out.println("<body class='bg-info'>");
+            out.println("<h1 class='text-center'>Estatus de la Actualización</h1>");
 
             CategoriaDAO dao = new CategoriaDAO();
             CategoriaDTO dto = new CategoriaDTO();
-            dto.getEntidad().setIdcategorria(Integer.parseInt(request.getParameter("id")));
-
+            dto.getEntidad().setIdcategorria(Integer.parseInt(request.getParameter("idxtx")));
+            dto.getEntidad().setNombrecategoria(request.getParameter("txtNombreu"));
+            dto.getEntidad().setDescripcioncategoria(request.getParameter("txtDescripcionu"));
+            String msg = "";
+            String ms = "Estado:";
             try {
-                dto = dao.read(dto);
+                dao.update(dto);
+                msg="Actualización Realizada Satisfactoriamente";
             } catch (SQLException ex) {
-                Logger.getLogger(ActualizarCategoria.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(update.class.getName()).log(Level.SEVERE, null, ex);
             }
-            if (dto != null) {
-                out.println("        <h1 class=\"text-center\">Actualizar Categoría</h1>\n"
-                        + "        <div  class=\"text-left\">\n"
-                        + "            <br>\n"
-                        + "            <br>\n"
-                        + "            <form name=\"frmUpdate\" method=\"post\" action=\"update\">\n"
-                        + "                ID:<br>\n"
-                        + "                <select name=\"idxtx\" class=\"form-control form-control-lg\">\n"
-                        + "                    <option>" + dto.getEntidad().getIdcategorria() + "</option>\n"
-                        + "                </select>\n"
-                        + "                <br>\n"
-                        + "                Nuevo Nombre Categoría:<br>\n"
-                        + "                <input class=\"form-control\" type=\"text\" name=\"txtNombreu\" placeholder=\"Ingresa el nuevo nombre\" required/>\n"
-                        + "                <br>\n"
-                        + "                Nueva Descripción:<br>\n"
-                        + "                <input class=\"form-control\" type=\"text\" name=\"txtDescripcionu\" placeholder=\"Ingresa la nueva descripción\" required/>\n"
-                        + "                <div class=\"text-center\">\n"
-                        + "                    <input class=\"btn btn-success\" type=\"submit\" value=\"Enviar\" name=\"btnEnviar\"/>\n"
-                        + "                    <br> \n"
-                        + "                    <br> \n"
-                        + "                    <a  class=\"btn btn-primary\" href=\"MostrarDatosCategoria\">Listado de Categorías</a>\n"
-                        + "                </div>\n"
-                        + "            </form>\n"
-                        + "        </div>");
-                //dto.getEntidad().getIdcategorria();
-            }
-
+            out.println("<div class='text-center'>");
+            out.println("<b>" + ms + msg + "</b>");
+            out.println("<br>");
+            out.println("<a href='MostrarDatosCategoria' class='btn btn-primary'>Listado de categorias</a>");
+            out.println("</div>");
             out.println("</body>");
             out.println("</html>");
         }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ipn.mx.dto;
+package com.ipn.mx.categorias;
 
 import com.ipn.mx.modelo.dao.CategoriaDAO;
 import com.ipn.mx.modelo.dto.CategoriaDTO;
@@ -101,7 +101,7 @@ public class MostrarDatosCategoria extends HttpServlet {
                     out.println("<a href='EliminarCategoria?id="+dto.getEntidad().getIdcategorria()+"' class='btn btn-danger'>Eliminar</a>");
                     out.println("</td>");
                     out.println("<td>");
-                    out.println("<a href='ActualizarCategoria' class='btn btn-success'>Actualizar</a>");
+                    out.println("<a href='ActualizarCategoria?id="+dto.getEntidad().getIdcategorria()+"' class='btn btn-success'>Actualizar</a>");
                     out.println("</td>");
                     out.println("<tr>");
                 }
