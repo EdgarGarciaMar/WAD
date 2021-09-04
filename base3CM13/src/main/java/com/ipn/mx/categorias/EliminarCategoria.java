@@ -42,12 +42,18 @@ public class EliminarCategoria extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Eliminar Categoria</title>");            
+            out.println("<title>Eliminar Categoria</title>");
+            out.print("<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We\" crossorigin=\"anonymous\">\n"
+                    + "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj\" crossorigin=\"anonymous\"></script>");
+            out.println("<script src=\"https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js\" \n"
+                    + "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js\" crossorigin=\"anonymous\"></script>");            
             out.println("</head>");
-            out.println("<body>");
+            out.println("<body class='bg-info'>");
+            out.println("<h1 class='text-center'>Eliminación de Categoría</h1>");
             CategoriaDAO dao= new CategoriaDAO();
             CategoriaDTO dto=new CategoriaDTO();
             String msj="";
+            String ms="Estado:";
             dto.getEntidad().setIdcategorria(Integer.parseInt(request.getParameter("id")));
             try {
                 dao.delete(dto);
@@ -55,9 +61,10 @@ public class EliminarCategoria extends HttpServlet {
             } catch (SQLException ex) {
                 Logger.getLogger(EliminarCategoria.class.getName()).log(Level.SEVERE, null, ex);
             }
-            out.println("<div aling='center'>");
-            out.println("<b>"+msj+"</b>");
-            out.println("<a href='MostrarDatosCategoria'>Listado de Categorias</a>");
+            out.println("<div class='text-center'>");
+            out.println("<b>"+ms+msj+"</b>");
+            out.println("<br>");
+            out.println("<a href='MostrarDatosCategoria' class='btn btn-primary'>Listado de Categorías</a>");
             out.println("</div>");
             out.println("</body>");
             out.println("</html>");

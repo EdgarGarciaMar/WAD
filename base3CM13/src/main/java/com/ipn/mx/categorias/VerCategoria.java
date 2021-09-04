@@ -48,7 +48,8 @@ public class VerCategoria extends HttpServlet {
             out.println("<script src=\"https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js\" \n"
                     + "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js\" crossorigin=\"anonymous\"></script>");
             out.println("</head>");
-            out.println("<body>");
+            out.println("<body class='bg-info'>");
+            out.println("<h1 class='text-center'>Información de la Categoría</h1>");
             CategoriaDAO dao = new CategoriaDAO();
             CategoriaDTO dto = new CategoriaDTO();
             dto.getEntidad().setIdcategorria(Integer.parseInt(request.getParameter("id")));
