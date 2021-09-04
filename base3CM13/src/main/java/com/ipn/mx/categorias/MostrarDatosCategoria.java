@@ -49,7 +49,7 @@ public class MostrarDatosCategoria extends HttpServlet {
                     + "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js\" crossorigin=\"anonymous\"></script>");
             out.println("<title>Lista de categorias</title>");
             out.println("</head>");
-            out.println("<body>");
+            out.println("<body class='bg-info'>");
             out.println("<div class=\"container\">");
             out.println("<nav class=\"navbar navbar-expand-lg navbar-light bg-light\">\n"
                     + "                <div class=\"container-fluid\">\n"
@@ -60,13 +60,13 @@ public class MostrarDatosCategoria extends HttpServlet {
                     + "                    <div class=\"collapse navbar-collapse\" id=\"navbarNav\">\n"
                     + "                        <ul class=\"navbar-nav\">\n"
                     + "                            <li class=\"nav-item\">\n"
-                    + "                                <a class=\"nav-link active\" aria-current=\"page\" href=\"index.html\">Home</a>\n"
+                    + "                                <a class=\"nav-link\" aria-current=\"page\" href=\"index.html\">Home</a>\n"
                     + "                            </li>\n"
                     + "                            <li class=\"nav-item\">\n"
                     + "                                <a class=\"nav-link\" href=\"TablasDeMultiplicar\">Tablas de Multiplicar</a>\n"
                     + "                            </li>\n"
                     + "                            <li class=\"nav-item\">\n"
-                    + "                                <a class=\"nav-link\" href=\"MostrarDatosCategoria\">Listado de Categorías</a>\n"
+                    + "                                <a class=\"nav-link active\" href=\"MostrarDatosCategoria\">Listado de Categorías</a>\n"
                     + "                            </li>\n"
                     + "                        </ul>\n"
                     + "                    </div>\n"

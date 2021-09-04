@@ -42,7 +42,7 @@ public class TablasDeMultiplicar extends HttpServlet {
             out.println("<script src=\"https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js\" \n"
                     + "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js\" crossorigin=\"anonymous\"></script>");
             out.println("</head>");
-            out.println("<body>");
+            out.println("<body class='bg-info'>");
             out.println("<div class=\"container\">");
             out.println("<nav class=\"navbar navbar-expand-lg navbar-light bg-light\">\n"
                     + "                <div class=\"container-fluid\">\n"
@@ -53,10 +53,10 @@ public class TablasDeMultiplicar extends HttpServlet {
                     + "                    <div class=\"collapse navbar-collapse\" id=\"navbarNav\">\n"
                     + "                        <ul class=\"navbar-nav\">\n"
                     + "                            <li class=\"nav-item\">\n"
-                    + "                                <a class=\"nav-link active\" aria-current=\"page\" href=\"index.html\">Home</a>\n"
+                    + "                                <a class=\"nav-link\" aria-current=\"page\" href=\"index.html\">Home</a>\n"
                     + "                            </li>\n"
                     + "                            <li class=\"nav-item\">\n"
-                    + "                                <a class=\"nav-link\" href=\"#\">Tablas de Multiplicar</a>\n"
+                    + "                                <a class=\"nav-link active\" href=\"#\">Tablas de Multiplicar</a>\n"
                     + "                            </li>\n"
                     + "                            <li class=\"nav-item\">\n"
                     + "                                <a class=\"nav-link\" href=\"MostrarDatosCategoria\">Listado de Categorías</a>\n"
