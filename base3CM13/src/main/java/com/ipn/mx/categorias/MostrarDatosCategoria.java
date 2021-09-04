@@ -53,7 +53,7 @@ public class MostrarDatosCategoria extends HttpServlet {
             out.println("<div class=\"container\">");
             out.println("<nav class=\"navbar navbar-expand-lg navbar-light bg-light\">\n"
                     + "                <div class=\"container-fluid\">\n"
-                    + "                    <a class=\"navbar-brand\" href=\"#\">Demo</a>\n"
+                    + "                    <a class=\"navbar-brand\" href=\"#\">Menu</a>\n"
                     + "                    <button class=\"navbar-toggler\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#navbarNav\" aria-controls=\"navbarNav\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n"
                     + "                        <span class=\"navbar-toggler-icon\"></span>\n"
                     + "                    </button>\n"
@@ -63,18 +63,23 @@ public class MostrarDatosCategoria extends HttpServlet {
                     + "                                <a class=\"nav-link active\" aria-current=\"page\" href=\"index.html\">Home</a>\n"
                     + "                            </li>\n"
                     + "                            <li class=\"nav-item\">\n"
-                    + "                                <a class=\"nav-link\" href=\"#\">Tablas de Multiplicar</a>\n"
+                    + "                                <a class=\"nav-link\" href=\"TablasDeMultiplicar\">Tablas de Multiplicar</a>\n"
+                    + "                            </li>\n"
+                    + "                            <li class=\"nav-item\">\n"
+                    + "                                <a class=\"nav-link\" href=\"MostrarDatosCategoria\">Listado de Categorías</a>\n"
                     + "                            </li>\n"
                     + "                        </ul>\n"
                     + "                    </div>\n"
                     + "                </div>\n"
                     + "            </nav>");
-            out.println("<h1>Lista de Categorias</h1>");
+            out.println("<h1>Lista de Categorías</h1>");
             out.println("<table class=\"table table-bordered\">");
             out.print("<tr>");
             out.println("<th>Clave</th>");
             out.println("<th>Nombre</th>");
-            out.println("<th>Descripcion</th>");
+            out.println("<th>Descripción</th>");
+            out.println("<th>Eliminar</th>");
+            out.println("<th>Actualizar</th>");
             out.print("</tr>");
             CategoriaDAO dao = new CategoriaDAO();
             try {
@@ -82,9 +87,22 @@ public class MostrarDatosCategoria extends HttpServlet {
                 for (int i = 0; i < lista.size(); i++) {
                     CategoriaDTO dto = (CategoriaDTO) lista.get(i);
                     out.println("<tr>");
-                    out.println("<td>" + dto.getEntidad().getIdcategorria() + "</td>");
+                    
+                    out.println("<td>");
+                    out.println("<a href='VerCategoria?id="+ dto.getEntidad().getIdcategorria()+"' class='btn btn-warning'>");
+                    out.println(dto.getEntidad().getIdcategorria());
+                    out.println("</a>");
+                    out.println("</td>");
+                    
+                    
                     out.println("<td>" + dto.getEntidad().getNombrecategoria() + "</td>");
                     out.println("<td>" + dto.getEntidad().getDescripcioncategoria() + "</td>");
+                    out.println("<td>");
+                    out.println("<a href='EliminarCategoria?id="+dto.getEntidad().getIdcategorria()+"' class='btn btn-danger'>Eliminar</a>");
+                    out.println("</td>");
+                    out.println("<td>");
+                    out.println("<a href='ActualizarCategoria' class='btn btn-success'>Actualizar</a>");
+                    out.println("</td>");
                     out.println("<tr>");
                 }
 
@@ -92,6 +110,7 @@ public class MostrarDatosCategoria extends HttpServlet {
                 Logger.getLogger(MostrarDatosCategoria.class.getName()).log(Level.SEVERE, null, ex);
             }
             out.println("</table>");
+            out.println("<a href='CategotiaForm.html' class='btn btn-primary'>Agregar Categoría</a>");
             out.println("</div>");
             out.println("</body>");
             out.println("</html>");

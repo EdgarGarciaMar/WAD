@@ -1,21 +1,24 @@
 <!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
 <html>
     <head>
-        <title>Pagina de Inicio</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Categorias</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-        <link rel="stylesheet" href="style.css" type="text/css"/>
-
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
     </head>
-    <body class="ind">
-        <div class="containerindex">
-        <div class="containerb">
+    <body>
+        <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Menu</a>
+                    <a class="navbar-brand" href="#">Demo</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -30,22 +33,24 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="MostrarDatosCategoria">Listado de Categorías</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="CategotiaForm.html">Nueva Categoría</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </nav>
         </div>
-        <div class="container1index">
-            <h1>Home de proyecto Base 3CM13</h1>
-        </div>
-        <div class="container2index">
-            <p>Este proyecto se realizaron las siguientes actividades:</p>
-            <ol>
-                <li>Servlet de tablas de multiplicar</li>
-                <li>Conexión a una base de datos SQL</li>
-                <li>CRUD</li>
-            </ol>
-        </div>
+        <div  class="container">
+            <form name="frmDatos" method="post" action="AgregarCategoria">
+                Nombre Categoría:
+                <input type="text" name="txtNombre" placeholder="Ingresa el nombre" required/>
+                <br/>
+                Descripción:
+                <input type="text" name="txtDescripcion" placeholder="Descripción de la categoria" required/>
+                <br/>
+                <input type="submit" value="Enviar" name="btnEnviar"/>    
+            </form>
         </div>
     </body>
 </html>
