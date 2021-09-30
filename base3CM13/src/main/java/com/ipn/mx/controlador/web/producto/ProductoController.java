@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -120,7 +121,7 @@ public class ProductoController extends HttpServlet {
             out.println("<script src=\"https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js\" \n"
                     + "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js\" crossorigin=\"anonymous\"></script>");
             out.println("</head>");
-            out.println("<body>");
+            out.println("<body class='bg-info'>");
             out.println("<div class ='container'>");
 
             out.println("            <nav class=\"navbar navbar-expand-lg navbar-light bg-light\">\n"
@@ -188,6 +189,7 @@ public class ProductoController extends HttpServlet {
 
             out.println("</tbody>");
             out.println("</table>");
+            out.println("<a href='productoForm.html' class='btn btn-primary'>Agregar Producto</a>");
             out.println("</div>");
             out.println("</body>");
             out.println("</html>");
@@ -195,34 +197,36 @@ public class ProductoController extends HttpServlet {
     }
 
     private void nuevoProducto(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Nuevo Producto</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ProductoController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        RequestDispatcher rd = request.getRequestDispatcher("productoForm.html");
+        try {
+            rd.forward(request, response);
+        } catch (ServletException | IOException ex) {
+            Logger.getLogger(ProductoController.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
     private void eliminarProducto(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        ProductoDAO dao = new ProductoDAO();
+        ProductoDTO dto = new ProductoDTO();
 
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Eliminar Producto</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ProductoController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        dto.getEntidad().setIdProducto(Integer.parseInt(request.getParameter("id")));
+        String msg = "";
+        response.setContentType("text/html;charset=UTF-8");
+        try {
+            dao.delete(dto);
+            msg = "Registro eliminado";
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try (PrintWriter out = response.getWriter()) {
+            out.println("<div>");
+            out.println(msg);
+            out.println("<br />");
+            out.println("<a href='ProductoController?accion=listaDeProductos' class='btn btn-success'>Lista de productos</a>");
+            out.println("</div>");
+            out.println("");
         }
     }
 
@@ -235,7 +239,7 @@ public class ProductoController extends HttpServlet {
             out.println("<head>");
             out.println("<title>Actualizar Producto</title>");
             out.println("</head>");
-            out.println("<body>");
+            out.println("<body class='bg-info'>");
             out.println("<h1>Servlet ProductoController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
@@ -245,30 +249,81 @@ public class ProductoController extends HttpServlet {
     private void verProducto(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.print("<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We\" crossorigin=\"anonymous\">\n"
+                    + "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj\" crossorigin=\"anonymous\"></script>");
+            out.println("<script src=\"https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js\" \n"
+                    + "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js\" crossorigin=\"anonymous\"></script>");
+            out.println("<title>Ver Producto</title>");
+            out.println("</head>");
+            out.println("<body class='bg-info'>");
+            out.println("<div class=\"container\">");
+            out.println("<h1>Productos</h1><br>");
+            ProductoDAO dao = new ProductoDAO();
+            ProductoDTO dto = new ProductoDTO();
+            dto.getEntidad().setIdProducto(Integer.parseInt(request.getParameter("id")));
+
+            try {
+                dto = dao.read(dto);
+            } catch (SQLException ex) {
+                Logger.getLogger(ProductoController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            if (dto != null) {
+                out.println("<table class ='table table-striped'>");
+                out.println("<tr><th>Clave del producto <td>" + dto.getEntidad().getIdProducto() + "</td></th></tr>");
+                out.println("<tr><th>Nombre del producto <td>" + dto.getEntidad().getNombreProducto() + "</td></th></tr>");
+                out.println("<tr><th>Descripcion del producto <td>" + dto.getEntidad().getDescripcionProducto() + "</td></th></tr>");
+                out.println("<tr><th>Precio del producto <td>" + dto.getEntidad().getPrecio() + "</td></th></tr>");
+                out.println("<tr><th>Existencia del producto <td>" + dto.getEntidad().getExistencia() + "</td></th></tr>");
+                out.println("<tr><th>Stock <td>" + dto.getEntidad().getStockMinimo() + "</td></th></tr>");
+                out.println("<tr><th>Categoria <td>" + dto.getEntidad().getClaveCategoria() + "</td></th></tr>");
+                out.println("</table>");
+                out.println("<a href='ProductoController?accion=listaDeProductos' class='btn btn-success'>Listado</a>");
+                out.println("</div>");
+            } else {
+                out.println("<div class='container'>");
+                out.println("<p>Vacio</p>");
+                out.println("<a href='ProductoController?accion=listaDeProductos' class='btn btn-primary'>Listado de Productos</a>");
+                out.println("</div>");
+            }
+
+            out.println("</body>");
+            out.println("</html>");
+        }
+
+    }
+
+    private void almacenarProducto(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        ProductoDAO dao = new ProductoDAO();
+        ProductoDTO dto = new ProductoDTO();
+
+        dto.getEntidad().setNombreProducto(request.getParameter("txtNombreProducto"));
+        dto.getEntidad().setDescripcionProducto(request.getParameter("txtDescripcionProducto"));
+        dto.getEntidad().setExistencia(Integer.parseInt(request.getParameter("txtExistencia")));
+        dto.getEntidad().setPrecio(Float.valueOf(request.getParameter("txtPrecio")));
+        dto.getEntidad().setStockMinimo(Integer.parseInt(request.getParameter("txtStockMinimo")));
+        dto.getEntidad().setClaveCategoria(Integer.parseInt(request.getParameter("txtClaveCategoria")));
+
+        try {
+            dao.create(dto);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try (PrintWriter out = response.getWriter()) {
 
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Ver Producto</title>");
             out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ProductoController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    private void almacenarProducto(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Almacenar Producto</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ProductoController at " + request.getContextPath() + "</h1>");
+            out.println("<body class='bg-info'>");
+            out.println("<h1 align='center'>Producto registrado</h1><br>");
+            out.println("<a href='ProductoController?accion=listaDeProductos' class='btn btn-primary'>Lista de Productos</a>");
             out.println("</body>");
             out.println("</html>");
         }

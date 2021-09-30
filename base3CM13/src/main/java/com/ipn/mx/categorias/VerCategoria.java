@@ -59,11 +59,6 @@ public class VerCategoria extends HttpServlet {
                 Logger.getLogger(VerCategoria.class.getName()).log(Level.SEVERE, null, ex);
             }
             if (dto != null) {
-                /*out.println("<ol>");
-            out.println("<li>"+dto.getEntidad().getIdcategorria()+"</li>");
-            out.println("<li>"+dto.getEntidad().getNombrecategoria()+"</li>");
-            out.println("<li>"+dto.getEntidad().getDescripcioncategoria()+"</li>");
-            out.println("</lo>");*/
                 out.println("<div class='container'>");
                 out.println("<table class=\"table table-bordered\">");
                 out.print("<tr>");
