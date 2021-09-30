@@ -51,6 +51,7 @@ public class MostrarDatosCategoria extends HttpServlet {
             out.println("</head>");
             out.println("<body class='bg-info'>");
             out.println("<div class=\"container\">");
+
             out.println("            <nav class=\"navbar navbar-expand-lg navbar-light bg-light\">\n"
                     + "                <div class=\"container-fluid\">\n"
                     + "                    <a class=\"navbar-brand\" href=\"#\">Menu</a>\n"
@@ -75,7 +76,7 @@ public class MostrarDatosCategoria extends HttpServlet {
                     + "                    </div>\n"
                     + "                </div>\n"
                     + "            </nav>");
-
+            
             out.println("<h1>Lista de Categorías</h1>");
             out.println("<table class=\"table table-bordered\">");
             out.print("<tr>");

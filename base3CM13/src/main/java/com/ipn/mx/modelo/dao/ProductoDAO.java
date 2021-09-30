@@ -54,7 +54,7 @@ public class ProductoDAO {
             ps.setInt(4, dto.getEntidad().getExistencia());
             ps.setInt(5, dto.getEntidad().getStockMinimo());
             ps.setInt(6, dto.getEntidad().getClaveCategoria());
-            ps.executeQuery();
+           ps.executeLargeUpdate();
         } finally {
             if (ps != null) {
                 ps.close();
@@ -138,6 +138,7 @@ public class ProductoDAO {
         ResultSet rs = null;
         try {
             ps = conexion.prepareStatement(SQL_READ);
+            ps.setInt(1,dto.getEntidad().getIdProducto());
             rs = ps.executeQuery();
             List resultados = obtenerResultados(rs);
             if (resultados.size() > 0) {
