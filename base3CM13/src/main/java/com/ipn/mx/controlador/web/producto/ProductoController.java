@@ -189,6 +189,8 @@ public class ProductoController extends HttpServlet {
 
             out.println("</tbody>");
             out.println("</table>");
+            out.println("<br>");
+            
             out.println("<a href='productoForm.html' class='btn btn-primary'>Agregar Producto</a>");
             out.println("</div>");
             out.println("</body>");
@@ -282,7 +284,7 @@ public class ProductoController extends HttpServlet {
                 out.println("<tr><th>Stock <td>" + dto.getEntidad().getStockMinimo() + "</td></th></tr>");
                 out.println("<tr><th>Categoria <td>" + dto.getEntidad().getClaveCategoria() + "</td></th></tr>");
                 out.println("</table>");
-                out.println("<a href='ProductoController?accion=listaDeProductos' class='btn btn-success'>Listado</a>");
+                out.println("<a href='ProductoController?accion=listaDeProductos' class='btn btn-success'>Listado de Productos</a>");
                 out.println("</div>");
             } else {
                 out.println("<div class='container'>");
@@ -298,31 +300,43 @@ public class ProductoController extends HttpServlet {
     }
 
     private void almacenarProducto(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        ProductoDAO dao = new ProductoDAO();
-        ProductoDTO dto = new ProductoDTO();
-
-        dto.getEntidad().setNombreProducto(request.getParameter("txtNombreProducto"));
-        dto.getEntidad().setDescripcionProducto(request.getParameter("txtDescripcionProducto"));
-        dto.getEntidad().setExistencia(Integer.parseInt(request.getParameter("txtExistencia")));
-        dto.getEntidad().setPrecio(Float.valueOf(request.getParameter("txtPrecio")));
-        dto.getEntidad().setStockMinimo(Integer.parseInt(request.getParameter("txtStockMinimo")));
-        dto.getEntidad().setClaveCategoria(Integer.parseInt(request.getParameter("txtClaveCategoria")));
-
-        try {
-            dao.create(dto);
-        } catch (SQLException ex) {
-            Logger.getLogger(ProductoController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
 
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Ver Producto</title>");
+            out.println("<title>Estatus Producto</title>");
+            out.print("<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We\" crossorigin=\"anonymous\">\n"
+                    + "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj\" crossorigin=\"anonymous\"></script>");
+            out.println("<script src=\"https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js\" \n"
+                    + "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js\" crossorigin=\"anonymous\"></script>");
             out.println("</head>");
             out.println("<body class='bg-info'>");
-            out.println("<h1 align='center'>Producto registrado</h1><br>");
+            out.println("<h1 align='center'>Producto</h1><br>");
+            ProductoDAO dao = new ProductoDAO();
+            ProductoDTO dto = new ProductoDTO();
+
+            dto.getEntidad().setNombreProducto(request.getParameter("txtNombreProducto"));
+            dto.getEntidad().setDescripcionProducto(request.getParameter("txtDescripcionProducto"));
+            dto.getEntidad().setExistencia(Integer.parseInt(request.getParameter("txtExistencia")));
+            dto.getEntidad().setPrecio(Float.valueOf(request.getParameter("txtPrecio")));
+            dto.getEntidad().setStockMinimo(Integer.parseInt(request.getParameter("txtStockMinimo")));
+            dto.getEntidad().setClaveCategoria(Integer.parseInt(request.getParameter("txtClaveCategoria")));
+
+            out.println(dto.getEntidad().getIdProducto());
+            out.println(dto.getEntidad().getNombreProducto());
+            out.println(dto.getEntidad().getDescripcionProducto());
+            out.println(dto.getEntidad().getPrecio());
+            out.println(dto.getEntidad().getExistencia());
+            out.println(dto.getEntidad().getStockMinimo());
+            out.println(dto.getEntidad().getClaveCategoria());
+            try {
+                dao.create(dto);
+            } catch (SQLException ex) {
+                Logger.getLogger(ProductoController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            out.println("<br>");
             out.println("<a href='ProductoController?accion=listaDeProductos' class='btn btn-primary'>Lista de Productos</a>");
             out.println("</body>");
             out.println("</html>");
