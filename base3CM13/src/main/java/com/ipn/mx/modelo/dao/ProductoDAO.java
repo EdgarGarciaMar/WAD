@@ -77,7 +77,7 @@ public class ProductoDAO {
             ps.setInt(5, dto.getEntidad().getStockMinimo());
             ps.setInt(6, dto.getEntidad().getClaveCategoria());
             ps.setInt(7, dto.getEntidad().getIdProducto());
-            ps.executeQuery();
+            ps.executeLargeUpdate();//ps.executeQuery();
         } finally {
             if (ps != null) {
                 ps.close();
