@@ -13,6 +13,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -52,7 +54,7 @@ public class ProductoDAO {
             ps.setInt(4, dto.getEntidad().getExistencia());
             ps.setInt(5, dto.getEntidad().getStockMinimo());
             ps.setInt(6, dto.getEntidad().getClaveCategoria());
-            ps.executeUpdate();
+            ps.executeQuery();
         } finally {
             if (ps != null) {
                 ps.close();
@@ -62,7 +64,7 @@ public class ProductoDAO {
             }
         }
     }
-    
+
     public void update(ProductoDTO dto) throws SQLException {
         conectar();
         PreparedStatement ps = null;
@@ -74,7 +76,25 @@ public class ProductoDAO {
             ps.setInt(4, dto.getEntidad().getExistencia());
             ps.setInt(5, dto.getEntidad().getStockMinimo());
             ps.setInt(6, dto.getEntidad().getClaveCategoria());
-            ps.executeUpdate();
+            ps.setInt(7, dto.getEntidad().getIdProducto());
+            ps.executeQuery();
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conexion != null) {
+                conexion.close();
+            }
+        }
+    }
+
+    public void delete(ProductoDTO dto) throws SQLException {
+        conectar();
+        PreparedStatement ps = null;
+        try {
+            ps = conexion.prepareStatement(SQL_DELETE);
+            ps.setInt(1, dto.getEntidad().getIdProducto());
+            ps.executeQuery();
         } finally {
             if (ps != null) {
                 ps.close();
@@ -90,7 +110,8 @@ public class ProductoDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
-            ps = conexion.prepareCall(SQL_ALL);
+            ps = conexion.prepareStatement(SQL_ALL);
+            rs = ps.executeQuery();
             List resultados = obtenerResultados(rs);
             if (resultados.size() > 0) {
                 return resultados;
@@ -111,6 +132,36 @@ public class ProductoDAO {
         }
     }
 
+    public ProductoDTO read(ProductoDTO dto) throws SQLException {
+        conectar();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = conexion.prepareStatement(SQL_READ);
+            rs = ps.executeQuery();
+            List resultados = obtenerResultados(rs);
+            if (resultados.size() > 0) {
+                return (ProductoDTO) resultados.get(0);
+            } else {
+                return null;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conexion != null) {
+                conexion.close();
+            }
+
+        }
+        return null;
+    }
+
     private List obtenerResultados(ResultSet rs) throws SQLException {
         List resultados = new ArrayList();
         while (rs.next()) {
@@ -125,5 +176,21 @@ public class ProductoDAO {
             resultados.add(p);
         }
         return resultados;
+    }
+
+    public static void main(String[] args) {
+        ProductoDAO dao = new ProductoDAO();
+        ProductoDTO dto = new ProductoDTO();
+        dto.getEntidad().setNombreProducto("pc");
+        dto.getEntidad().setDescripcionProducto("pc de juegos");
+        dto.getEntidad().setExistencia(100);
+        dto.getEntidad().setPrecio(1000);
+        dto.getEntidad().setStockMinimo(10);
+        dto.getEntidad().setClaveCategoria(22);
+        try {
+            dao.create(dto);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

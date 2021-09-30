@@ -24,4 +24,6 @@ public class Producto implements Serializable{
     private int stockMinimo;
     private int claveCategoria;
 
+   
+
 }

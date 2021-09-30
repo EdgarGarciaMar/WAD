@@ -10,6 +10,7 @@ import com.ipn.mx.modelo.dto.ProductoDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -139,6 +140,9 @@ public class ProductoController extends HttpServlet {
                     + "                            <li class=\"nav-item\">\n"
                     + "                                <a class=\"nav-link\" href=\"MostrarDatosCategoria\">Listado de Categorías</a>\n"
                     + "                            </li>\n"
+                    + "                            <li class=\"nav-item\">\n"
+                    + "                                <a class=\"nav-link\" href=\"ProductoController?accion=listaDeProductos\">Listado de Productos</a>\n"
+                    + "                            </li>\n"
                     + "                        </ul>\n"
                     + "                    </div>\n"
                     + "                </div>\n"
@@ -159,13 +163,13 @@ public class ProductoController extends HttpServlet {
             out.println("</tr>");
             out.println("</thead>");
             out.println("<tbody>");
-
             ProductoDAO dao = new ProductoDAO();
             List lista;
             try {
                 lista = dao.readALL();
                 for (int i = 0; i < lista.size(); i++) {
                     ProductoDTO dto = (ProductoDTO) lista.get(i);
+                    out.println("<tr>");
                     out.println("<td><a href='ProductoController?accion=ver&id=" + dto.getEntidad().getIdProducto() + "' class = 'btn btn-warning'>" + dto.getEntidad().getIdProducto() + "</a></td>");
                     out.println("<td>" + dto.getEntidad().getNombreProducto() + "</td>");
                     out.println("<td>" + dto.getEntidad().getDescripcionProducto() + "</td>");
@@ -173,10 +177,12 @@ public class ProductoController extends HttpServlet {
                     out.println("<td>" + dto.getEntidad().getExistencia() + "</td>");
                     out.println("<td>" + dto.getEntidad().getStockMinimo() + "</td>");
                     out.println("<td>" + dto.getEntidad().getClaveCategoria() + "</td>");
-                    out.println("<a href='ProductoController?accion=eliminar&id=" + dto.getEntidad().getIdProducto() + "' class='btn btn-danger'>Eliminar</a>");
-                    out.println("<a href='ProductoController?accion=actualizar&id=" + dto.getEntidad().getIdProducto() + "' class='btn btn-success'>Actualizar</a>");
+                    out.println("<td><a href='ProductoController?accion=eliminar&id=" + dto.getEntidad().getIdProducto() + "' class='btn btn-danger'>Eliminar</a></td>");
+                    out.println("<td><a href='ProductoController?accion=actualizar&id=" + dto.getEntidad().getIdProducto() + "' class='btn btn-success'>Actualizar</a></td>");
+                    out.println("</tr>");
                 }
             } catch (SQLException ex) {
+                lista = new ArrayList();
                 Logger.getLogger(ProductoController.class.getName()).log(Level.SEVERE, null, ex);
             }
 

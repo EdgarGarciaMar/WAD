@@ -51,7 +51,7 @@ public class MostrarDatosCategoria extends HttpServlet {
             out.println("</head>");
             out.println("<body class='bg-info'>");
             out.println("<div class=\"container\">");
-            out.println("<nav class=\"navbar navbar-expand-lg navbar-light bg-light\">\n"
+            out.println("            <nav class=\"navbar navbar-expand-lg navbar-light bg-light\">\n"
                     + "                <div class=\"container-fluid\">\n"
                     + "                    <a class=\"navbar-brand\" href=\"#\">Menu</a>\n"
                     + "                    <button class=\"navbar-toggler\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#navbarNav\" aria-controls=\"navbarNav\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n"
@@ -60,18 +60,22 @@ public class MostrarDatosCategoria extends HttpServlet {
                     + "                    <div class=\"collapse navbar-collapse\" id=\"navbarNav\">\n"
                     + "                        <ul class=\"navbar-nav\">\n"
                     + "                            <li class=\"nav-item\">\n"
-                    + "                                <a class=\"nav-link\" aria-current=\"page\" href=\"index.html\">Home</a>\n"
+                    + "                                <a class=\"nav-link active\" aria-current=\"page\" href=\"index.html\">Home</a>\n"
                     + "                            </li>\n"
                     + "                            <li class=\"nav-item\">\n"
                     + "                                <a class=\"nav-link\" href=\"TablasDeMultiplicar\">Tablas de Multiplicar</a>\n"
                     + "                            </li>\n"
                     + "                            <li class=\"nav-item\">\n"
-                    + "                                <a class=\"nav-link active\" href=\"MostrarDatosCategoria\">Listado de Categorías</a>\n"
+                    + "                                <a class=\"nav-link\" href=\"MostrarDatosCategoria\">Listado de Categorías</a>\n"
+                    + "                            </li>\n"
+                    + "                            <li class=\"nav-item\">\n"
+                    + "                                <a class=\"nav-link\" href=\"ProductoController?accion=listaDeProductos\">Listado de Productos</a>\n"
                     + "                            </li>\n"
                     + "                        </ul>\n"
                     + "                    </div>\n"
                     + "                </div>\n"
                     + "            </nav>");
+
             out.println("<h1>Lista de Categorías</h1>");
             out.println("<table class=\"table table-bordered\">");
             out.print("<tr>");
@@ -87,21 +91,20 @@ public class MostrarDatosCategoria extends HttpServlet {
                 for (int i = 0; i < lista.size(); i++) {
                     CategoriaDTO dto = (CategoriaDTO) lista.get(i);
                     out.println("<tr>");
-                    
+
                     out.println("<td>");
-                    out.println("<a href='VerCategoria?id="+ dto.getEntidad().getIdcategorria()+"' class='btn btn-warning'>");
+                    out.println("<a href='VerCategoria?id=" + dto.getEntidad().getIdcategorria() + "' class='btn btn-warning'>");
                     out.println(dto.getEntidad().getIdcategorria());
                     out.println("</a>");
                     out.println("</td>");
-                    
-                    
+
                     out.println("<td>" + dto.getEntidad().getNombrecategoria() + "</td>");
                     out.println("<td>" + dto.getEntidad().getDescripcioncategoria() + "</td>");
                     out.println("<td>");
-                    out.println("<a href='EliminarCategoria?id="+dto.getEntidad().getIdcategorria()+"' class='btn btn-danger'>Eliminar</a>");
+                    out.println("<a href='EliminarCategoria?id=" + dto.getEntidad().getIdcategorria() + "' class='btn btn-danger'>Eliminar</a>");
                     out.println("</td>");
                     out.println("<td>");
-                    out.println("<a href='ActualizarCategoria?id="+dto.getEntidad().getIdcategorria()+"' class='btn btn-success'>Actualizar</a>");
+                    out.println("<a href='ActualizarCategoria?id=" + dto.getEntidad().getIdcategorria() + "' class='btn btn-success'>Actualizar</a>");
                     out.println("</td>");
                     out.println("<tr>");
                 }
