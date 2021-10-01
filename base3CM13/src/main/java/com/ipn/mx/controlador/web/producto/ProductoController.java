@@ -324,20 +324,14 @@ public class ProductoController extends HttpServlet {
             dto.getEntidad().setStockMinimo(Integer.parseInt(request.getParameter("txtStockMinimo")));
             dto.getEntidad().setClaveCategoria(Integer.parseInt(request.getParameter("txtClaveCategoria")));
 
-            out.println(dto.getEntidad().getIdProducto());
-            out.println(dto.getEntidad().getNombreProducto());
-            out.println(dto.getEntidad().getDescripcionProducto());
-            out.println(dto.getEntidad().getPrecio());
-            out.println(dto.getEntidad().getExistencia());
-            out.println(dto.getEntidad().getStockMinimo());
-            out.println(dto.getEntidad().getClaveCategoria());
+
             try {
                 dao.create(dto);
             } catch (SQLException ex) {
                 Logger.getLogger(ProductoController.class.getName()).log(Level.SEVERE, null, ex);
             }
             out.println("<br>");
-            out.println("<a href='ProductoController?accion=listaDeProductos' class='btn btn-primary'>Lista de Productos</a>");
+            out.println("<a align=\"center\" href='ProductoController?accion=listaDeProductos' class='btn btn-primary'>Lista de Productos</a>");
             out.println("</body>");
             out.println("</html>");
         }
