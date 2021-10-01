@@ -110,7 +110,7 @@ public class ProductoController extends HttpServlet {
 
     private void listaDeProductos(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
 
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -190,7 +190,7 @@ public class ProductoController extends HttpServlet {
             out.println("</tbody>");
             out.println("</table>");
             out.println("<br>");
-            
+
             out.println("<a href='productoForm.html' class='btn btn-primary'>Agregar Producto</a>");
             out.println("</div>");
             out.println("</body>");
@@ -214,27 +214,43 @@ public class ProductoController extends HttpServlet {
 
         dto.getEntidad().setIdProducto(Integer.parseInt(request.getParameter("id")));
         String msg = "";
-        response.setContentType("text/html;charset=UTF-8");
+      
         try {
             dao.delete(dto);
             msg = "Registro eliminado";
         } catch (SQLException ex) {
             Logger.getLogger(ProductoController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        response.setContentType("text/html;charset=UTF-8");
+        try ( PrintWriter out = response.getWriter()) {
 
-        try (PrintWriter out = response.getWriter()) {
-            out.println("<div>");
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.print("<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We\" crossorigin=\"anonymous\">\n"
+                    + "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj\" crossorigin=\"anonymous\"></script>");
+            out.println("<script src=\"https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js\" \n"
+                    + "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js\" crossorigin=\"anonymous\"></script>");
+            out.println("<title>Eliminar Producto</title>");
+            out.println("</head>");
+            out.println("<body class='bg-info'>");
+
+            out.println("<div class='text-center'>");
             out.println(msg);
             out.println("<br />");
             out.println("<a href='ProductoController?accion=listaDeProductos' class='btn btn-success'>Lista de productos</a>");
             out.println("</div>");
             out.println("");
+
+            out.println("</body>");
+            out.println("</html>");
+
         }
     }
 
     private void actualizarProducto(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
 
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -250,7 +266,7 @@ public class ProductoController extends HttpServlet {
 
     private void verProducto(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -287,7 +303,7 @@ public class ProductoController extends HttpServlet {
                 out.println("<a href='ProductoController?accion=listaDeProductos' class='btn btn-success'>Listado de Productos</a>");
                 out.println("</div>");
             } else {
-                out.println("<div class='container'>");
+                out.println("<div class='text-center'>");
                 out.println("<p>Vacio</p>");
                 out.println("<a href='ProductoController?accion=listaDeProductos' class='btn btn-primary'>Listado de Productos</a>");
                 out.println("</div>");
@@ -301,7 +317,7 @@ public class ProductoController extends HttpServlet {
 
     private void almacenarProducto(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
 
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -324,14 +340,15 @@ public class ProductoController extends HttpServlet {
             dto.getEntidad().setStockMinimo(Integer.parseInt(request.getParameter("txtStockMinimo")));
             dto.getEntidad().setClaveCategoria(Integer.parseInt(request.getParameter("txtClaveCategoria")));
 
-
             try {
                 dao.create(dto);
             } catch (SQLException ex) {
                 Logger.getLogger(ProductoController.class.getName()).log(Level.SEVERE, null, ex);
             }
             out.println("<br>");
-            out.println("<a align=\"center\" href='ProductoController?accion=listaDeProductos' class='btn btn-primary'>Lista de Productos</a>");
+            out.println("<div class='text-center'>");
+            out.println("<a href='ProductoController?accion=listaDeProductos' class='btn btn-primary'>Lista de Productos</a>");
+            out.println("</div>");
             out.println("</body>");
             out.println("</html>");
         }

@@ -94,7 +94,8 @@ public class ProductoDAO {
         try {
             ps = conexion.prepareStatement(SQL_DELETE);
             ps.setInt(1, dto.getEntidad().getIdProducto());
-            ps.executeQuery();
+            //ps.executeQuery();
+            ps.executeLargeUpdate();
         } finally {
             if (ps != null) {
                 ps.close();
