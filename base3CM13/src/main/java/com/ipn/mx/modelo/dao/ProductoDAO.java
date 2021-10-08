@@ -29,11 +29,23 @@ public class ProductoDAO {
     private static final String SQL_ALL = "select idProducto, nombreProducto, descripcionProducto ,precio,existencia, stockMinimo, claveCategoria from Producto";
 
     private Connection conexion;
-
+//base local
+//    private void conectar() {
+//        String user = "postgres";
+//        String pwd = "1234";
+//        String url = "jdbc:postgresql://localhost:5432/Base3CM13";
+//        String pgDriver = "org.postgresql.Driver";
+//        try {
+//            Class.forName(pgDriver);
+//            conexion = DriverManager.getConnection(url, user, pwd);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
     private void conectar() {
-        String user = "postgres";
-        String pwd = "1234";
-        String url = "jdbc:postgresql://localhost:5432/Base3CM13";
+        String user = "ybqzruvibzpgoe";
+        String pwd = "2ddda5fb4e6fac08c526812dfb56a938ba2b073e53f3eec44b28e5b52693c596";
+        String url = "jdbc:postgresql://ec2-34-205-14-168.compute-1.amazonaws.com:5432/dcfts8gj2hles0";
         String pgDriver = "org.postgresql.Driver";
         try {
             Class.forName(pgDriver);
@@ -54,7 +66,7 @@ public class ProductoDAO {
             ps.setInt(4, dto.getEntidad().getExistencia());
             ps.setInt(5, dto.getEntidad().getStockMinimo());
             ps.setInt(6, dto.getEntidad().getClaveCategoria());
-           ps.executeLargeUpdate();
+            ps.executeLargeUpdate();
         } finally {
             if (ps != null) {
                 ps.close();
@@ -139,7 +151,7 @@ public class ProductoDAO {
         ResultSet rs = null;
         try {
             ps = conexion.prepareStatement(SQL_READ);
-            ps.setInt(1,dto.getEntidad().getIdProducto());
+            ps.setInt(1, dto.getEntidad().getIdProducto());
             rs = ps.executeQuery();
             List resultados = obtenerResultados(rs);
             if (resultados.size() > 0) {
