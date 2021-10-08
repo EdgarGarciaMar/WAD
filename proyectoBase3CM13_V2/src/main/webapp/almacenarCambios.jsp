@@ -1,6 +1,6 @@
 <%-- 
-    Document   : eliminar
-    Created on : 4 oct. 2021, 07:49:40
+    Document   : almacenarCambios
+    Created on : 8 oct. 2021, 11:07:25
     Author     : edgargarcia
 --%>
 
@@ -11,14 +11,16 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Eliminar</title>
+        <title>Almacenar Cambios</title>
     </head>
     <body>
         <%
-            CategoriaDAO dao= new CategoriaDAO();
+            CategoriaDAO dao = new CategoriaDAO();
             CategoriaDTO dto = new CategoriaDTO();
-            dto.getEntidad().setIdcategorria(Integer.parseInt(request.getParameter("id")));
-            dao.delete(dto);
+            dto.getEntidad().setNombrecategoria(request.getParameter("txtNombre"));
+            dto.getEntidad().setDescripcioncategoria(request.getParameter("txtDescripcion"));
+            dto.getEntidad().setIdcategorria(Integer.parseInt(request.getParameter("txtClave")));
+            dao.update(dto);
             response.sendRedirect("lista_de_categorias.jsp");
         %>
     </body>

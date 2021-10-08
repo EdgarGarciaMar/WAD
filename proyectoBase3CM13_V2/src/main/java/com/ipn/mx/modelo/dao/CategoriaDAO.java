@@ -30,7 +30,7 @@ public class CategoriaDAO {
 
     private Connection conexion;
 
-    /*private void conectar() {
+    private void conectar() {
         String user = "postgres";
         String pwd = "1234";
         String url = "jdbc:postgresql://localhost:5432/Base3CM13";
@@ -41,10 +41,10 @@ public class CategoriaDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }*/
+    }
 
     public void create(CategoriaDTO dto) throws SQLException {
-        //conectar();
+        conectar();
         PreparedStatement ps = null;
         try {
             ps = conexion.prepareStatement(SQL_INSERT);
@@ -62,7 +62,7 @@ public class CategoriaDAO {
     }
 
     public void update(CategoriaDTO dto) throws SQLException {
-        //conectar();
+        conectar();
         PreparedStatement ps = null;
         try {
             ps = conexion.prepareStatement(SQL_UPDATE);
@@ -81,7 +81,7 @@ public class CategoriaDAO {
     }
 
     public void delete(CategoriaDTO dto) throws SQLException {
-       // conectar();
+        conectar();
         PreparedStatement ps = null;
         try {
             ps = conexion.prepareStatement(SQL_DELETE);
@@ -98,7 +98,7 @@ public class CategoriaDAO {
     }
 
     public CategoriaDTO read(CategoriaDTO dto)throws SQLException{
-       // conectar();
+        conectar();
         PreparedStatement ps = null;
         ResultSet rs= null;
         try {
@@ -138,7 +138,7 @@ public class CategoriaDAO {
     }
     
         public List readall ()throws SQLException{
-       // conectar();
+        conectar();
         PreparedStatement ps = null;
         ResultSet rs= null;
         try {

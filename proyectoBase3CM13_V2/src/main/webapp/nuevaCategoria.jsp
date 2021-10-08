@@ -1,17 +1,15 @@
 <%-- 
-    Document   : verDatos
-    Created on : 4 oct. 2021, 07:57:54
+    Document   : nuevaCategoria
+    Created on : 8 oct. 2021, 10:47:23
     Author     : edgargarcia
 --%>
 
-<%@page import="com.ipn.mx.modelo.dao.CategoriaDAO"%>
-<%@page import="com.ipn.mx.modelo.dto.CategoriaDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Ver Datos</title>
+        <title>Nueva Categoria</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" >
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
@@ -37,6 +35,20 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="lista_de_categorias.jsp">Listado de categorias</a>
                                 </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Dropdown
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" href="#">Action</a></li>
+                                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link disabled">Disabled</a>
+                                </li>
                             </ul>
                             <form class="d-flex">
                                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -47,58 +59,30 @@
                 </nav>
             </div>
 
-            <div class="card border-primary">
+            <div class="mb-3"></div>
+            <div class="card border-success">
                 <div class="card-header">
-                    <h1>Lista de Categorias</h1>
+                    <h1 class="text-primary text-center">Datos de la Categoria</h1>
                 </div>
+                <div class="card-body">
+                    <form method="post" action="agregarCategoria.jsp">
+                        <div class="mb-3">
+                            <label class="form-label">Nombre de la Categoria</label>
+                            <input type="text" name="txtNombre" id="txtNombre"placeholder="Nombre Categoria"
+                                   required="required" maxlength="50" class="form-control" />
+                        </div>
 
-                <%
-                    CategoriaDAO dao = new CategoriaDAO();
-                    CategoriaDTO dto = new CategoriaDTO();
-                    dto.getEntidad().setIdcategorria(Integer.parseInt(request.getParameter("id")));
-                    dto = dao.read(dto);
-                    if (dto != null) {
-                %>
-                <div class="card-body text-primary">
-                    <table class="table table-striped">
-                        <tr>
-                            <th>
-                                Clave Categoria
-                            </th>
-                            <td>
-                                <%= dto.getEntidad().getIdcategorria()%>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                Nombre Categoria
-                            </th>
-                            <td>
-                                <%= dto.getEntidad().getNombrecategoria()%>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                Descripcion Categoria
-                            </th>
-                            <td>
-                                <%= dto.getEntidad().getDescripcioncategoria()%>
-                            </td>
-                        </tr>
-                    </table>
-                    <%
-                        } else {
-                            out.println("sin valores a mostrar");
-                        }
-                    %>
-
-
+                        <div class="mb-3">
+                            <label class="form-label">Descripcion de la Categoria</label>
+                            <input type="text" name="txtDescripcion" id="txtDescripcion"placeholder="Descripcion Categoria"
+                                   required="required" maxlength="50" class="form-control" />
+                        </div>
+                        <button type="submit" class="btn btn-primary">Registrar Categoria</button>
+                    </form>
                 </div>
-                <a href="lista_de_categorias.jsp" class="btn btn-warning">Regresar</a>
             </div>
-
-
         </div>
+
 
     </body>
 </html>
