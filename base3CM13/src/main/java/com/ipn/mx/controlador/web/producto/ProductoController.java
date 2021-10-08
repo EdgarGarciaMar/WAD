@@ -59,6 +59,10 @@ public class ProductoController extends HttpServlet {
                         } else {
                             if (accion.equals("guarar")) {
                                 almacenarProducto(request, response);
+                            } else {
+                                if (accion.equals("update")) {
+                                    almacenarProducto2(request, response);
+                                }
                             }
                         }
                     }
@@ -214,7 +218,7 @@ public class ProductoController extends HttpServlet {
 
         dto.getEntidad().setIdProducto(Integer.parseInt(request.getParameter("id")));
         String msg = "";
-      
+
         try {
             dao.delete(dto);
             msg = "Registro eliminado";
@@ -249,17 +253,78 @@ public class ProductoController extends HttpServlet {
     }
 
     private void actualizarProducto(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        ProductoDTO dto = new ProductoDTO();
+
+        dto.getEntidad().setIdProducto(Integer.parseInt(request.getParameter("id")));
+
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
 
             out.println("<!DOCTYPE html>");
             out.println("<html>");
+
             out.println("<head>");
             out.println("<title>Actualizar Producto</title>");
+            out.print("<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We\" crossorigin=\"anonymous\">\n"
+                    + "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj\" crossorigin=\"anonymous\"></script>");
+            out.println("<script src=\"https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js\" \n"
+                    + "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js\" crossorigin=\"anonymous\"></script>");
             out.println("</head>");
+
             out.println("<body class='bg-info'>");
-            out.println("<h1>Servlet ProductoController at " + request.getContextPath() + "</h1>");
+
+            out.println("       <div class=\"container\">\n"
+                    + "            <br>\n"
+                    + "            <h1 align=\"center\">Producto</h1>\n"
+                    + "            <br>\n"
+                    + "        <form method=\"POST\" action=\"ProductoController?accion=update\">\n"
+                    + "                <div class=\"mb-3\">\n"
+                    + "                    <label for=\"txtNombreProducto\" class=\"form-label\">Nombre del producto</label>\n"
+                    + "                    <input type=\"text\" id=\"txtNombreProducto\" name=\"txtNombreProducto\" placeholder=\"Nombre del producto\"\n"
+                    + "                           class=\"form-control\" required=\"required\" />\n"
+                    + "                </div>\n"
+                    + "                <div class=\"mb-3\">\n"
+                    + "                    <label for=\"txtDescripcionProducto\" class=\"form-label\">Descripcion del producto</label>\n"
+                    + "                    <input type=\"text\" id=\"txtDescripcionProducto\" name=\"txtDescripcionProducto\" placeholder=\"Descripcion del producto\"\n"
+                    + "                           class=\"form-control\" required=\"required\" />\n"
+                    + "                </div>\n"
+                    + "                <div class=\"mb-3\">\n"
+                    + "                    <label for=\"txtPrecio\" class=\"form-label\">Precio del producto</label>\n"
+                    + "                    <input type=\"text\" id=\"txtPrecio\" name=\"txtPrecio\" placeholder=\"$0.00\"\n"
+                    + "                           class=\"form-control\" required=\"required\" />\n"
+                    + "                </div>\n"
+                    + "                <div class=\"mb-3\">\n"
+                    + "                    <label for=\"txtExistencia\" class=\"form-label\">Existencia del producto</label>\n"
+                    + "                    <input type=\"number\" id=\"txtExistencia\" step=\"1\" min=\"1\" max=\"100\" name=\"txtExistencia\" placeholder=\"Existencia\"\n"
+                    + "                           class=\"form-control\" required=\"required\" />\n"
+                    + "                </div>\n"
+                    + "                <div class=\"mb-3\">\n"
+                    + "                    <label for=\"txtStockMinimo\" class=\"form-label\">Stock del producto</label>\n"
+                    + "                    <input type=\"number\" id=\"txtStockMinimo\" step=\"1\" min=\"10\" max=\"100\" name=\"txtStockMinimo\" placeholder=\"Stock del producto\"\n"
+                    + "                           class=\"form-control\" required=\"required\" />\n"
+                    + "                </div>\n"
+                    + "                \n"
+                    + "                <div class=\"mb-3\">\n"
+                    + "                    <label for=\"idxtx\" class=\"form-label\">Id del producto</label>\n"
+                    //+ "                    <input type=\"number\" id=\"txtClaveCategoria\" name=\"txtClaveCategoria\" placeholder=\"Categoria del producto\"\n"
+                    //+ "                           class=\"form-control\" required=\"required\" />\n"
+                    + "                <select name=\"idxtx\" class=\"form-control form-control-lg\">\n"
+                    + "                    <option>" + dto.getEntidad().getIdProducto() + "</option>\n"
+                    + "                </select>\n"
+                    + "                </div>\n"
+                    + "                <div class=\"mb-3\">\n"
+                    + "                    <label for=\"idxtxclave\" class=\"form-label\">Clave de la categoria</label>\n"
+                    + "                    <input type=\"number\" id=\"idxtxclave\" name=\"idxtxclave\" placeholder=\"Categoria del producto\"\n"
+                    + "                           class=\"form-control\" required=\"required\" />\n"
+                    + "                </div>\n"
+                    + "                \n"
+                    + "                <button type=\"submit\" class=\"btn-primary\" >Enviar</button>\n"
+                    + "            </form>\n"
+                    + "\n"
+                    + "        </div>");
+
             out.println("</body>");
+
             out.println("</html>");
         }
     }
@@ -342,6 +407,47 @@ public class ProductoController extends HttpServlet {
 
             try {
                 dao.create(dto);
+            } catch (SQLException ex) {
+                Logger.getLogger(ProductoController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            out.println("<br>");
+            out.println("<div class='text-center'>");
+            out.println("<a href='ProductoController?accion=listaDeProductos' class='btn btn-primary'>Lista de Productos</a>");
+            out.println("</div>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
+
+    private void almacenarProducto2(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try ( PrintWriter out = response.getWriter()) {
+
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Estatus Producto</title>");
+            out.print("<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We\" crossorigin=\"anonymous\">\n"
+                    + "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj\" crossorigin=\"anonymous\"></script>");
+            out.println("<script src=\"https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js\" \n"
+                    + "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js\" crossorigin=\"anonymous\"></script>");
+            out.println("</head>");
+            out.println("<body class='bg-info'>");
+            out.println("<h1 align='center'>Producto</h1><br>");
+            ProductoDAO dao = new ProductoDAO();
+            ProductoDTO dto = new ProductoDTO();
+
+            dto.getEntidad().setNombreProducto(request.getParameter("txtNombreProducto"));
+            dto.getEntidad().setDescripcionProducto(request.getParameter("txtDescripcionProducto"));
+            dto.getEntidad().setExistencia(Integer.parseInt(request.getParameter("txtExistencia")));
+            dto.getEntidad().setPrecio(Float.valueOf(request.getParameter("txtPrecio")));
+            dto.getEntidad().setStockMinimo(Integer.parseInt(request.getParameter("txtStockMinimo")));
+            dto.getEntidad().setClaveCategoria(Integer.parseInt(request.getParameter("idxtxclave")));
+            dto.getEntidad().setIdProducto(Integer.parseInt(request.getParameter("idxtx")));
+
+            try {
+                //dao.create(dto);
+                dao.update(dto);
             } catch (SQLException ex) {
                 Logger.getLogger(ProductoController.class.getName()).log(Level.SEVERE, null, ex);
             }
