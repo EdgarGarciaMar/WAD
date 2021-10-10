@@ -1,17 +1,17 @@
 <%-- 
-    Document   : verDatos
-    Created on : 4 oct. 2021, 07:57:54
+    Document   : verDatosProducto
+    Created on : 10 oct. 2021, 12:01:06
     Author     : edgargarcia
 --%>
 
-<%@page import="com.ipn.mx.modelo.dao.CategoriaDAO"%>
-<%@page import="com.ipn.mx.modelo.dto.CategoriaDTO"%>
+<%@page import="com.ipn.mx.modelo.dto.ProductoDTO"%>
+<%@page import="com.ipn.mx.modelo.dao.ProductoDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Ver Datos</title>
+        <title>Ver Datos Producto</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" >
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
@@ -52,9 +52,9 @@
                 </div>
 
                 <%
-                    CategoriaDAO dao = new CategoriaDAO();
-                    CategoriaDTO dto = new CategoriaDTO();
-                    dto.getEntidad().setIdcategorria(Integer.parseInt(request.getParameter("id")));
+                    ProductoDAO dao = new ProductoDAO();
+                    ProductoDTO dto = new ProductoDTO();
+                    dto.getEntidad().setIdProducto(Integer.parseInt(request.getParameter("id")));
                     dto = dao.read(dto);
                     if (dto != null) {
                 %>
@@ -62,26 +62,58 @@
                     <table class="table table-striped">
                         <tr>
                             <th>
-                                Clave Categoria
+                                Clave Producto
                             </th>
                             <td>
-                                <%= dto.getEntidad().getIdcategorria()%>
+                                <%= dto.getEntidad().getIdProducto()%>
                             </td>
                         </tr>
                         <tr>
                             <th>
-                                Nombre Categoria
+                                Nombre Producto
                             </th>
                             <td>
-                                <%= dto.getEntidad().getNombrecategoria()%>
+                                <%= dto.getEntidad().getNombreProducto()%>
                             </td>
                         </tr>
                         <tr>
                             <th>
-                                Descripcion Categoria
+                                Descripcion Producto
                             </th>
                             <td>
-                                <%= dto.getEntidad().getDescripcioncategoria()%>
+                                <%= dto.getEntidad().getDescripcionProducto()%>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Precio
+                            </th>
+                            <td>
+                                <%= dto.getEntidad().getPrecio()%>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Existencias
+                            </th>
+                            <td>
+                                <%= dto.getEntidad().getExistencia()%>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Stock
+                            </th>
+                            <td>
+                                <%= dto.getEntidad().getStockMinimo()%>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Categoria
+                            </th>
+                            <td>
+                                <%= dto.getEntidad().getClaveCategoria()%>
                             </td>
                         </tr>
                     </table>
@@ -93,11 +125,12 @@
 
 
                 </div>
-                <a href="lista_de_categorias.jsp" class="btn btn-warning">Regresar</a>
+                <a href="ListaDeProductos.jsp" class="btn btn-warning">Regresar</a>
             </div>
 
 
         </div>
+
 
     </body>
 </html>

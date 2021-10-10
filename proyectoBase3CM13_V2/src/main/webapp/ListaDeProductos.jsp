@@ -83,7 +83,7 @@
 
                             <tr>
                                 <td>
-                                    <a href="verDatos.jsp?id=<%= PRO.getEntidad().getIdProducto()%>" class="btn btn-warning"><%= PRO.getEntidad().getIdProducto()%></a>
+                                    <a href="verDatosProducto.jsp?id=<%= PRO.getEntidad().getIdProducto()%>" class="btn btn-warning"><%= PRO.getEntidad().getIdProducto()%></a>
                                 </td>
                                 <td>
                                     <%=PRO.getEntidad().getNombreProducto()%>
