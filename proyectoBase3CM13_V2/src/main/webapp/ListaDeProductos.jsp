@@ -1,18 +1,18 @@
 <%-- 
-    Document   : lista_de_categorias
-    Created on : 4 oct. 2021, 07:17:22
+    Document   : ListaDeProductos
+    Created on : 10 oct. 2021, 11:00:42
     Author     : edgargarcia
 --%>
 
-<%@page import="com.ipn.mx.modelo.dto.CategoriaDTO"%>
+<%@page import="com.ipn.mx.modelo.dto.ProductoDTO"%>
 <%@page import="java.util.List"%>
-<%@page import="com.ipn.mx.modelo.dao.CategoriaDAO"%>
+<%@page import="com.ipn.mx.modelo.dao.ProductoDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Lista de categorias</title>
+        <title>Lista de productos</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN" crossorigin="anonymous"></script>
@@ -49,44 +49,65 @@
 
             <div class="card border-primary">
                 <div class="card-header">
-                    <h1>Lista de categorias</h1>
+                    <h1>Lista de Productos</h1>
                     <div class="card card-body text-primary">
                         <table>
                             <tr>
-                                <th>Clave categoria</th>
+                                <th>Clave producto</th>
 
 
-                                <th>Nombre categoria</th>
+                                <th>Nombre Producto</th>
 
-                                <th>Descripcion categoria</th>
+                                <th>Descripcion Producto</th>
+
+                                <th>Precio</th>
+
+                                <th>Existencia</th>
+
+                                <th>Stock</th>
+
+                                <th>Precio</th>
 
                                 <th>Eliminar</th>
 
-                                <th>Actualizar</th>
+                                <th>Clave de la categoria</th>
                             </tr>
 
                             <%
-                                CategoriaDAO dao = new CategoriaDAO();
-                                List lista = dao.readall();
+
+                                ProductoDAO daop = new ProductoDAO();
+                                List lista = daop.readALL();
                                 for (int i = 0; i < lista.size(); i++) {
-                                    CategoriaDTO cat = (CategoriaDTO) lista.get(i);
+                                    ProductoDTO PRO = (ProductoDTO) lista.get(i);
                             %>
 
                             <tr>
                                 <td>
-                                    <a href="verDatos.jsp?id=<%= cat.getEntidad().getIdcategorria()%>" class="btn btn-warning"><%= cat.getEntidad().getIdcategorria()%></a>
+                                    <a href="verDatos.jsp?id=<%= PRO.getEntidad().getIdProducto()%>" class="btn btn-warning"><%= PRO.getEntidad().getIdProducto()%></a>
                                 </td>
                                 <td>
-                                    <%=cat.getEntidad().getNombrecategoria()%>
+                                    <%=PRO.getEntidad().getNombreProducto()%>
                                 </td>
                                 <td>
-                                    <%=cat.getEntidad().getDescripcioncategoria()%>
+                                    <%=PRO.getEntidad().getDescripcionProducto()%>
                                 </td>
                                 <td>
-                                    <a href="eliminar.jsp?id=<%=cat.getEntidad().getIdcategorria()%>" class="btn btn-danger">Eliminar</a>
+                                    <%=PRO.getEntidad().getPrecio()%>
                                 </td>
                                 <td>
-                                    <a href="actualizar.jsp?id=<%=cat.getEntidad().getIdcategorria()%>" class="btn btn-success">Actualizar</a>
+                                    <%=PRO.getEntidad().getExistencia()%>
+                                </td>
+                                <td>
+                                    <%=PRO.getEntidad().getStockMinimo()%>
+                                </td>
+                                <td>
+                                    <%=PRO.getEntidad().getClaveCategoria()%>
+                                </td>
+                                <td>
+                                    <a href="eliminarProducto.jsp?id=<%=PRO.getEntidad().getIdProducto()%>" class="btn btn-danger">Eliminar</a>
+                                </td>
+                                <td>
+                                    <a href="actualizarProducto.jsp?id=<%=PRO.getEntidad().getIdProducto()%>" class="btn btn-success">Actualizar</a>
                                 </td>
                             </tr>
                             <%
@@ -94,10 +115,9 @@
                             %>
                         </table>
                     </div>
-                    <a href="nuevaCategoria.jsp" class="btn btn-primary">Nuevo</a>
+                    <a href="nuevoProducto.jsp" class="btn btn-primary">Nuevo</a>
                 </div>
             </div>
         </div>
     </body>
 </html>
-

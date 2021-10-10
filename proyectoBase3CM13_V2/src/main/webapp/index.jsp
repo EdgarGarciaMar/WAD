@@ -34,6 +34,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="lista_de_categorias.jsp">Listado de categorias</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="ListaDeProductos.jsp">Listado de Productos</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
