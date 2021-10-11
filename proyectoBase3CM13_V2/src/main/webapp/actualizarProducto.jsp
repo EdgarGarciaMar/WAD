@@ -37,6 +37,15 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="lista_de_categorias.jsp">Listado de categorias</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="ListaDeProductos.jsp">Listado de Productos</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="nuevaCategoria.jsp">Nueva Categoria</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="nuevoProducto.jsp">Nuevo Producto</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -53,11 +62,11 @@
             <div class="mb-3"></div>
             <div class="card border-success">
                 <div class="card-header">
-                    <h1 class="text-primary text-center">Actualizar Categoria</h1>
+                    <h1 class="text-primary text-center">Actualizar Producto</h1>
                 </div>
                 <div class="card-body">
                     <form method="post" action="almacenarCambiosProducto.jsp">
-                        
+
                         <div class="mb-3">
                             <label for="idxtx" class="form-label">Id del producto</label>
 

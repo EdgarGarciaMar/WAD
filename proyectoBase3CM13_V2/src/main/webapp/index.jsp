@@ -37,11 +37,22 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="ListaDeProductos.jsp">Listado de Productos</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="nuevaCategoria.jsp">Nueva Categoria</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="nuevoProducto.jsp">Nuevo Producto</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </nav>
         </div>
-        <h1>Index de Proyecto base 3CM13_V2</h1>
+        <h1 align="center">Index de Proyecto base 3CM13_V2</h1>
+        <ul>
+            <li>Proyecto desarrollado con JSP's</li>
+            <li>Crud de Categoría completo</li>
+            <li>Crud de producto Completo</li>
+        </ul>
     </body>
 </html>

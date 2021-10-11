@@ -40,6 +40,15 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="ListaDeProductos.jsp">Listado de Productos</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="ListaDeProductos.jsp">Listado de Productos</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="nuevaCategoria.jsp">Nueva Categoria</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="nuevoProducto.jsp">Nuevo Producto</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -48,7 +57,7 @@
 
             <div class="card border-primary">
                 <div class="card-header">
-                    <h1>Lista de Categorias</h1>
+                    <h1>Lista del Producto</h1>
                 </div>
 
                 <%
