@@ -22,11 +22,12 @@ import java.util.logging.Logger;
  */
 public class CategoriaDAO {
 
-    private static final String SQL_INSERT = "insert into Categoria (nombrecategoria, descripcioncategoria) values (?, ?)";
-    private static final String SQL_UPDATE = "update Categoria set nombrecategoria = ?, descripcioncategoria = ? where idcategorria = ?";
-    private static final String SQL_DELETE = "delete from Categoria where idcategorria = ?";
-    private static final String SQL_READ = "select idcategorria, nombrecategoria, descripcioncategoria from Categoria where idcategorria = ?";
-    private static final String SQL_ALL = "select idcategorria, nombrecategoria, descripcioncategoria from Categoria";
+    //private static final String SQL_INSERT = "{call spinsertar(?,?)}";
+    private static final String SQL_INSERT = "insert sp_insertar(?,?)";
+    private static final String SQL_UPDATE = "";
+    private static final String SQL_DELETE = "";
+    private static final String SQL_READ = "";
+    private static final String SQL_ALL = "";
 
     private Connection conexion;
 
@@ -45,7 +46,8 @@ public class CategoriaDAO {
 
     public void create(CategoriaDTO dto) throws SQLException {
         conectar();
-        PreparedStatement ps = null;
+        //callableStatement ps = null;
+        PreparedStatement ps=null;
         try {
             ps = conexion.prepareStatement(SQL_INSERT);
             ps.setString(1, dto.getEntidad().getNombrecategoria());
