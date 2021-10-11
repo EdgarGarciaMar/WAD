@@ -29,11 +29,24 @@ public class CategoriaDAO {
     private static final String SQL_ALL = "select idcategorria, nombrecategoria, descripcioncategoria from Categoria";
 
     private Connection conexion;
-
+//Base local
+//    private void conectar() {
+//        String user = "postgres";
+//        String pwd = "1234";
+//        String url = "jdbc:postgresql://localhost:5432/Base3CM13";
+//        String pgDriver = "org.postgresql.Driver";
+//        try {
+//            Class.forName(pgDriver);
+//            conexion = DriverManager.getConnection(url, user, pwd);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+    
     private void conectar() {
-        String user = "postgres";
-        String pwd = "1234";
-        String url = "jdbc:postgresql://localhost:5432/Base3CM13";
+        String user = "ybqzruvibzpgoe";
+        String pwd = "2ddda5fb4e6fac08c526812dfb56a938ba2b073e53f3eec44b28e5b52693c596";
+        String url = "jdbc:postgresql://ec2-34-205-14-168.compute-1.amazonaws.com:5432/dcfts8gj2hles0";
         String pgDriver = "org.postgresql.Driver";
         try {
             Class.forName(pgDriver);
@@ -97,23 +110,22 @@ public class CategoriaDAO {
         }
     }
 
-    public CategoriaDTO read(CategoriaDTO dto)throws SQLException{
+    public CategoriaDTO read(CategoriaDTO dto) throws SQLException {
         conectar();
         PreparedStatement ps = null;
-        ResultSet rs= null;
+        ResultSet rs = null;
         try {
-            ps=conexion.prepareStatement(SQL_READ);
-            ps.setInt(1,dto.getEntidad().getIdcategorria());
-            rs=ps.executeQuery();
-            List resultados =obtenerResultados(rs);
-            if(resultados.size()>0){
-                return (CategoriaDTO) resultados.get(0);   
-            }
-            else{
+            ps = conexion.prepareStatement(SQL_READ);
+            ps.setInt(1, dto.getEntidad().getIdcategorria());
+            rs = ps.executeQuery();
+            List resultados = obtenerResultados(rs);
+            if (resultados.size() > 0) {
+                return (CategoriaDTO) resultados.get(0);
+            } else {
                 return null;
             }
         } finally {
-            if(rs != null){
+            if (rs != null) {
                 rs.close();
             }
             if (ps != null) {
@@ -125,9 +137,9 @@ public class CategoriaDAO {
         }
     }
 
-    private List obtenerResultados(ResultSet rs) throws SQLException{
+    private List obtenerResultados(ResultSet rs) throws SQLException {
         List resultados = new ArrayList();
-        while(rs.next()){
+        while (rs.next()) {
             CategoriaDTO dto = new CategoriaDTO();
             dto.getEntidad().setIdcategorria(rs.getInt("idCategorria"));
             dto.getEntidad().setNombrecategoria(rs.getString("nombreCategoria"));
@@ -136,23 +148,22 @@ public class CategoriaDAO {
         }
         return resultados;
     }
-    
-        public List readall ()throws SQLException{
+
+    public List readall() throws SQLException {
         conectar();
         PreparedStatement ps = null;
-        ResultSet rs= null;
+        ResultSet rs = null;
         try {
-            ps=conexion.prepareStatement(SQL_ALL);//READ_ALL
-            rs=ps.executeQuery();
-            List resultados =obtenerResultados(rs);
-            if(resultados.size()>0){
+            ps = conexion.prepareStatement(SQL_ALL);//READ_ALL
+            rs = ps.executeQuery();
+            List resultados = obtenerResultados(rs);
+            if (resultados.size() > 0) {
                 return resultados;
-            }
-            else{
+            } else {
                 return null;
             }
         } finally {
-            if(rs != null){
+            if (rs != null) {
                 rs.close();
             }
             if (ps != null) {
@@ -164,18 +175,17 @@ public class CategoriaDAO {
         }
     }
 
-        public static void main(String [] args){
-            CategoriaDAO dao= new CategoriaDAO();
-            
-            CategoriaDTO dto= new CategoriaDTO();
-            dto.getEntidad().setNombrecategoria("Electronicos");
-            dto.getEntidad().setDescripcioncategoria("Video Juegos");
-            try {
-                dao.create(dto);
-            } catch (SQLException ex) {
-                Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE,null,ex);
-            }
+    public static void main(String[] args) {
+        CategoriaDAO dao = new CategoriaDAO();
+
+        CategoriaDTO dto = new CategoriaDTO();
+        dto.getEntidad().setNombrecategoria("Electronicos");
+        dto.getEntidad().setDescripcioncategoria("Video Juegos");
+        try {
+            dao.create(dto);
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-             
-                
+    }
+
 }
