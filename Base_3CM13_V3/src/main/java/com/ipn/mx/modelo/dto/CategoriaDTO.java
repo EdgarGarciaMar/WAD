@@ -7,27 +7,29 @@ package com.ipn.mx.modelo.dto;
 
 import com.ipn.mx.modelo.entidades.Categoria;
 import java.io.Serializable;
+import lombok.Data;
 
 /**
  *
  * @author edgargarcia
  */
-public class CategoriaDTO implements Serializable{
+@Data
+public class CategoriaDTO implements Serializable {
+
     private Categoria entidad;
-    public CategoriaDTO(){
-        entidad= new Categoria();
+
+    public CategoriaDTO() {
+        entidad = new Categoria();
     }
 
-    public Categoria getEntidad() {
-        return entidad;
-    }
-
-    public void setEntidad(Categoria entidad) {
-        this.entidad = entidad;
-    }
-
-    
-        @Override
+//    public Categoria getEntidad() {
+//        return entidad;
+//    }
+//
+//    public void setEntidad(Categoria entidad) {
+//        this.entidad = entidad;
+//    }
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("clave= ").append(getEntidad().getIdcategorria()).append("\n");
@@ -35,5 +37,5 @@ public class CategoriaDTO implements Serializable{
         sb.append("descripcion= ").append(getEntidad().getDescripcioncategoria()).append("\n");
         return sb.toString();
     }
-    
+
 }
