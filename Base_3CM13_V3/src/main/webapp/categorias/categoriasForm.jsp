@@ -76,7 +76,7 @@
                                    placeholder="Nombre Categoria"
                                    required="required"
                                    maxlength="50"
-                                   value="<c:out value="${categoria.entidad.nombreCategoria}"/>"
+                                   value="<c:out value="${categoria.entidad.nombrecategoria}"/>"
                         </div>
                         <div class="nb-3">
                             <label class="form-label">Descripcion categoria</label>
@@ -84,7 +84,7 @@
                                    placeholder="Descripcion Categoria"
                                    required="required"
                                    maxlength="100"
-                                   value="<c:out value="${categoria.entidad.descripcionCategoria}"/>"
+                                   value="<c:out value="${categoria.entidad.descripcioncategoria}"/>"
                         </div>
                             <button type="submit" class="btn btn-outline-primary">Guardar Categoria</button>
                     </form>

@@ -13,7 +13,7 @@ import lombok.Data;
  *
  * @author edgargarcia
  */
-@Data
+//@Data
 public class CategoriaDTO implements Serializable {
 
     private Categoria entidad;
@@ -22,13 +22,13 @@ public class CategoriaDTO implements Serializable {
         entidad = new Categoria();
     }
 
-//    public Categoria getEntidad() {
-//        return entidad;
-//    }
-//
-//    public void setEntidad(Categoria entidad) {
-//        this.entidad = entidad;
-//    }
+    public Categoria getEntidad() {
+        return entidad;
+    }
+
+    public void setEntidad(Categoria entidad) {
+        this.entidad = entidad;
+    }
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

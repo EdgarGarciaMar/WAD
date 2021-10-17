@@ -91,17 +91,17 @@
                     <c:forEach var="dto" items="${listaDeCategorias}">
                         <tbody>
                             <tr>
-                                <td><a href="CategoriaServlet?accion=ver&id=<c:out value="${dto.entidad.idCategoria}" />" class="btn btn-outline-warning"><c:out value="${dto.entidad.idCategoria}" /></a></td>
-                                <td><c:out value="${dto.entidad.nombreCategoria}" /></td>
-                                <td><c:out value="${dto.entidad.descripcionCategoria}" /></td>
+                                <td><a href="CategoriaServlet?accion=ver&id=<c:out value="${dto.entidad.idcategorria}" />" class="btn btn-outline-warning"><c:out value="${dto.entidad.idcategorria}" /></a></td>
+                                <td><c:out value="${dto.entidad.nombrecategoria}" /></td>
+                                <td><c:out value="${dto.entidad.descripcioncategoria}" /></td>
                                 <td>
-                                    <a href="CategoriaServlet?accion=eliminar&id=<c:out value="${dto.entidad.idCategoria}" />" class="btn btn-outline-danger">Eliminar</a>
+                                    <a href="CategoriaServlet?accion=eliminar&id=<c:out value="${dto.entidad.idcategorria}" />" class="btn btn-outline-danger">Eliminar</a>
                                 </td>
                                 <td>
-                                    <a href="CategoriaServlet?accion=actualizar&id=<c:out value="${dto.entidad.idCategoria}"/>" class="btn btn-outline-success">Actualizar</a>
+                                    <a href="CategoriaServlet?accion=actualizar&id=<c:out value="${dto.entidad.idcategorria}"/>" class="btn btn-outline-success">Actualizar</a>
                                 </td>
                                 <td>
-                                    <a href="CategoriaServlet?accion=verReporte&id=<c:out value="${dto.entidad.idCategoria}"/>" class="btn btn-outline-info">Reporte</a>
+                                    <a href="CategoriaServlet?accion=verReporte&id=<c:out value="${dto.entidad.idcategorria}"/>" class="btn btn-outline-info">Reporte</a>
                                 </td>
                             </tr>
                         </tbody>
