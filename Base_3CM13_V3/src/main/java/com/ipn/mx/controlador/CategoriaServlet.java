@@ -5,7 +5,11 @@
 package com.ipn.mx.controlador;
 
 import com.ipn.mx.modelo.dao.CategoriaDAO;
+import com.ipn.mx.modelo.dao.graficaDAO;
 import com.ipn.mx.modelo.dto.CategoriaDTO;
+import com.ipn.mx.modelo.dto.graficaDTO;
+import java.io.File;
+//import com.lowagie.text.List;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -18,6 +22,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.general.PieDataset;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartUtils;
+import org.jfree.chart.JFreeChart;
 
 /**
  *
@@ -100,13 +112,12 @@ public class CategoriaServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    
     private void listaDeCategorias(HttpServletRequest request, HttpServletResponse response) {
         CategoriaDAO dao = new CategoriaDAO();
         try {
             Collection lista = dao.readall();
             request.setAttribute("listaDeCategorias", lista);
-            
+
             RequestDispatcher rd = request.getRequestDispatcher("/categorias/listaCategorias.jsp");
             rd.forward(request, response);
         } catch (SQLException | ServletException | IOException ex) {
@@ -169,18 +180,18 @@ public class CategoriaServlet extends HttpServlet {
             Logger.getLogger(CategoriaServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private void almacenarCategoria(HttpServletRequest request, HttpServletResponse response) {
         CategoriaDAO dao = new CategoriaDAO();
         CategoriaDTO dto = new CategoriaDTO();
-        
+
         dto.getEntidad().setNombrecategoria(request.getParameter("txtNombreCategoria"));
         dto.getEntidad().setDescripcioncategoria(request.getParameter("txtDescripcionCategoria"));
-        
+
         try {
-            dao.create(dto);            
+            dao.create(dto);
             request.setAttribute("mensaje", "Categoria agregada con exito.");
-            
+
             listaDeCategorias(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(CategoriaServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -191,8 +202,32 @@ public class CategoriaServlet extends HttpServlet {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private void mostrarGrafica(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void mostrarGrafica(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+        JFreeChart grafica = ChartFactory.createPieChart("Productos por categoria", obtenerGraficaProductosPorCtegoria(),true,true,Locale.getDefault());
+        String archivo = getServletConfig().getServletContext().getRealPath("/grafica.png");
+        try {
+            ChartUtils.saveChartAsPNG(new File(archivo), grafica, 500, 500);
+            RequestDispatcher vista = request.getRequestDispatcher("grafica.jsp");
+            vista.forward(request, response);
+        } catch (IOException ex) {
+            Logger.getLogger(CategoriaServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+
+    private PieDataset obtenerGraficaProductosPorCtegoria() {
+        DefaultPieDataset dsPie = new DefaultPieDataset();
+        graficaDAO dao = new graficaDAO();
+        try {
+            List datos = dao.graficarproductosporcategoria();
+            for (int i = 0; i < datos.size(); i++) {
+                graficaDTO dto = (graficaDTO) datos.get(i);
+                dsPie.setValue(dto.getNombreCategoria(), dto.getCantidad());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoriaServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return dsPie;
     }
 
 }
