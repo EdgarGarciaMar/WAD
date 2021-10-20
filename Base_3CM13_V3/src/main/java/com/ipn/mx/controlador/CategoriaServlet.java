@@ -172,7 +172,7 @@ public class CategoriaServlet extends HttpServlet {
         RequestDispatcher vista = request.getRequestDispatcher("/categorias/datosCategoria.jsp");
 
         try {
-            dao.read(dto);
+            dto = dao.read(dto);
             request.setAttribute("categoria", dto);
             vista.forward(request, response);
 

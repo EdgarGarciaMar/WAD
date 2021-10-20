@@ -66,7 +66,7 @@
             
             <div class="card bg-light">
                 <div class="card_header">
-                    <h3>Datos de la categoria</h3>
+                    <h3 class="text-center">Datos de la categoria</h3>
                 </div>
                 <div class="card-body">
                      <img src="./images/bootstrap-logo.svg" alt="" width="30" height="24" class="d-inline-block align-text-top">

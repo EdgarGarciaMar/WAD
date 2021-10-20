@@ -153,9 +153,9 @@ public class CategoriaDAO {
         List resultados = new ArrayList();
         while (rs.next()) {
             CategoriaDTO dto = new CategoriaDTO();
-            dto.getEntidad().setIdcategorria(rs.getInt("idCategorria"));
-            dto.getEntidad().setNombrecategoria(rs.getString("nombreCategoria"));
-            dto.getEntidad().setDescripcioncategoria(rs.getString("descripcionCategoria"));
+            dto.getEntidad().setIdcategorria(rs.getInt("idcategorria"));
+            dto.getEntidad().setNombrecategoria(rs.getString("nombrecategoria"));
+            dto.getEntidad().setDescripcioncategoria(rs.getString("descripcioncategoria"));
             resultados.add(dto);
         }
         return resultados;
