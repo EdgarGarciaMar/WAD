@@ -27,6 +27,9 @@ import org.jfree.data.general.PieDataset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import javax.servlet.ServletOutputStream;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperRunManager;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
@@ -199,11 +202,26 @@ public class CategoriaServlet extends HttpServlet {
     }
 
     private void mostrarReporteCategoria(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        CategoriaDAO dao = new CategoriaDAO();
+        try {
+            ServletOutputStream sos = response.getOutputStream();
+            File reporte = new File(getServletConfig().getServletContext().getRealPath("/reportes/ReporteGeneral.jasper"));
+            byte[] b = JasperRunManager.runReportToPdf(reporte.getPath(), null, dao.conectar());
+            response.setContentType("application.pdf");
+            response.setContentLength(b.length);
+            sos.write(b,0,b.length);
+            sos.flush();
+            sos.close();
+        } catch (IOException ex) {
+            Logger.getLogger(CategoriaServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JRException ex) {
+            Logger.getLogger(CategoriaServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     private void mostrarGrafica(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-        JFreeChart grafica = ChartFactory.createPieChart("Productos por categoria", obtenerGraficaProductosPorCtegoria(),true,true,Locale.getDefault());
+        JFreeChart grafica = ChartFactory.createPieChart("Productos por categoria", obtenerGraficaProductosPorCtegoria(), true, true, Locale.getDefault());
         String archivo = getServletConfig().getServletContext().getRealPath("/grafica.png");
         try {
             ChartUtils.saveChartAsPNG(new File(archivo), grafica, 500, 500);
@@ -213,7 +231,6 @@ public class CategoriaServlet extends HttpServlet {
             Logger.getLogger(CategoriaServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 
     private PieDataset obtenerGraficaProductosPorCtegoria() {
         DefaultPieDataset dsPie = new DefaultPieDataset();

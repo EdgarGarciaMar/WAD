@@ -74,7 +74,9 @@
                 <h4 class="card-title">
                     <a href="CategoriaServlet?accion=graficar" class="btn btn-outline-primary" target="_blank">Mostrar grafica</a>
                 </h4>
-
+                <h4 class="card-title">
+                    <a href="CategoriaServlet?accion=verReporte" class="btn btn-outline-primary" target="_blank">Mostrar Reporte</a>
+                </h4>
 
                 <c:if test="${mensaje != null}">
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
