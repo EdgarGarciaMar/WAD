@@ -11,7 +11,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this 
 <hibernate-configuration>
     <session-factory>
         <property name="connection.driver_class">org.postgresql.driver</property>
-        <property name="connection.url">jdbc:postgresql://localhost:5432/Base3CM13</property>
+        <property name="connection.url">jdbc:postgresql://localhost:5432/ProyectoBase3CM13</property>
         <property name="connection.username">postgres</property>
         <property name="connection.password">1234</property>
         <property name="connection.pool_size">1</property>
@@ -22,18 +22,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this 
         
         <property name="current_session_context_class">thread</property>
         
-        <property name="hbm2ddl">update</property>
+        <property name="hbm2ddl.auto">update</property>
         
-        <property name="hibernate.dncp.initialSize">5</property>
-        <property name="hibernate.dncp.maxTotal">20</property>
-        <property name="hibernate.dncp.maxIdle">10</property>
-        <property name="hibernate.dncp.minIdle">5</property>
-        <property name="hibernate.dncp.maxEaitMills">-1</property>
+        <property name="hibernate.dbcp.initialSize">5</property>
+        <property name="hibernate.dbcp.maxTotal">20</property>
+        <property name="hibernate.dbcp.maxIdle">10</property>
+        <property name="hibernate.dbcp.minIdle">5</property>
+        <property name="hibernate.dbcp.maxWaitMills">-1</property>
         
         <!-- apartir de aqui siguen las definiciones de entidades -->
         
-        <mapping class="com.ipn.mx.modelo.entidades.Usuario"/>
-        
+        <mapping class="com.ipn.mx.modelo.entidades.Categoria"/>
+        <mapping class="com.ipn.mx.modelo.entidades.Producto"/>
         
     </session-factory>
 </hibernate-configuration>
