@@ -34,6 +34,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this 
         
         <mapping class="com.ipn.mx.modelo.entidades.Categoria"/>
         <mapping class="com.ipn.mx.modelo.entidades.Producto"/>
+        <mapping class="com.ipn.mx.modelo.entidades.Usuario"/>
         
     </session-factory>
 </hibernate-configuration>

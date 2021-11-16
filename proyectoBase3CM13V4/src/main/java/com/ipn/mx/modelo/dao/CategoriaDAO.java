@@ -5,6 +5,7 @@
 package com.ipn.mx.modelo.dao;
 
 import com.ipn.mx.modelo.dto.CategoriaDTO;
+import com.ipn.mx.modelo.entidades.Categoria;
 import com.ipn.mx.utilerias.hibernateUtil;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -54,7 +55,7 @@ public class CategoriaDAO implements Serializable{
         }
     }
 
-    public void delete (CategoriaDTO dto) {
+    public void delete (CategoriaDTO dto) {//Arreglar el delete, clase 27 youtube
         Session s = hibernateUtil.getSessionFactory().getCurrentSession();
         Transaction tx = s.getTransaction();
         try {
@@ -90,7 +91,13 @@ public class CategoriaDAO implements Serializable{
         try {
             tx.begin();
             Query q= s.createQuery("from Categoria c order by c.idCategoria");
-            lista = q.list();
+            //lista = q.list();
+            for (Categoria c: (List<Categoria>) q.list()) {
+                CategoriaDTO dto = new CategoriaDTO();
+                dto.setEntidad(c);
+                lista.add(dto);
+                
+            }
             tx.commit();
         } catch (Exception e) {
             if (tx != null && tx.isActive()) {
@@ -102,6 +109,15 @@ public class CategoriaDAO implements Serializable{
         
         public static void main(String[] args) {
         CategoriaDAO dao = new CategoriaDAO();
+        
+        CategoriaDTO dto = new CategoriaDTO();
+        dto.getEntidad().setNombreCategoria("Categoria1");
+        dto.getEntidad().setDescripcionCategoria("Descripcion categoria 1");
+        dto.getEntidad().setIdCategoria(1);
+        //dao.create(dto);
+        
+        dao.update(dto);
+        
         System.out.println(dao.readAll());//linea que da null
     }
 }
