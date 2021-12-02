@@ -1,6 +1,6 @@
 <%-- 
-    Document   : index
-    Created on : 25 nov. 2021, 20:07:18
+    Document   : listaCategoria
+    Created on : 29 nov. 2021, 07:53:12
     Author     : edgargarcia
 --%>
 
@@ -13,6 +13,5 @@
     </head>
     <body>
         <h1>Hello World!</h1>
-        <a href="factorial">factorial</a>
     </body>
 </html>
