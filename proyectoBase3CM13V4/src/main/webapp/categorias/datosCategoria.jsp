@@ -72,13 +72,13 @@
                      <img src="./images/bootstrap-logo.svg" alt="" width="30" height="24" class="d-inline-block align-text-top">
                      <ul class="list-group">
                          <li class="list-group-item">
-                             <c:out value="${categoria.entidad.idcategorria}" />
+                             <c:out value="${categoria.entidad.idCategoria}" />
                          </li>
                          <li class="list-group-item">
-                             <c:out value="${categoria.entidad.nombrecategoria}" />
+                             <c:out value="${categoria.entidad.nombreCategoria}" />
                          </li>
                          <li class="list-group-item">
-                             <c:out value="${categoria.entidad.descripcioncategoria}" />
+                             <c:out value="${categoria.entidad.descripcionCategoria}" />
                          </li>
                          
                      </ul>
