@@ -8,6 +8,6 @@ package com.ipn.mx.modelo.dao;
  *
  * @author edgargarcia
  */
-public class ProductoDAO {
+public class ProductoDAO {//copiar el productodao
     
 }
