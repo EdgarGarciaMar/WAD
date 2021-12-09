@@ -89,14 +89,15 @@
                                             <f:facet name="header">
                                                 <h:outputText  value="Editar"/>
                                             </f:facet>
-                                            <h:commandLink action="#{productoMB.update}"
+                                            <h:commandLink action="#{productoMB.update()}"
                                                            actionListener="#{productoMB.seleccionarProducto}"
                                                            immediate="true"
-                                                           class="btn btn-succes">
+                                                           class="btn btn-outline-succes">
                                                 <f:param name="claveSel"
                                                          value="#{dto.idProducto}">
                                                     
                                                 </f:param>
+                                                Actualizar
                                             </h:commandLink>
                                         </h:column>
                                     </h:dataTable>

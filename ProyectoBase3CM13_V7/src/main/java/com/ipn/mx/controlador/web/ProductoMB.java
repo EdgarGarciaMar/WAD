@@ -92,7 +92,7 @@ public class ProductoMB extends BaseBean implements Serializable {
         return valido;
     }
     
-    public String agregar(){
+    public String add(){
         Boolean Valido = validate();
         if(Valido){
             dao.create(dto);
@@ -100,7 +100,7 @@ public class ProductoMB extends BaseBean implements Serializable {
                 return preparedIndex();
             }
             else{
-                return preparedUpdate();
+                return preparedAdd();
             }
         }
         else{
@@ -108,7 +108,7 @@ public class ProductoMB extends BaseBean implements Serializable {
         }
     }
     
-       public String Update(){
+       public String update(){
         Boolean Valido = validate();
         if(Valido){
             dao.update(dto);
@@ -124,7 +124,7 @@ public class ProductoMB extends BaseBean implements Serializable {
         }
     }
        
-       public String Delete(){
+       public String delete(){
            dao.delete(dto);
            return preparedIndex();
        }
